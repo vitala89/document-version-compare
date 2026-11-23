@@ -1,0 +1,42 @@
+/*
+  Design tokens. Direction: charcoal fintech dashboard (reference shared by
+  Vitalii, 22 Nov 2026): #23232D / #282B31 surfaces, violet-to-blue gradient,
+  Inter, large radii. #767676 from the reference is kept for lines
+  only: on #282B31 it is 3.1:1, below AA for small text, so labels use --muted.
+*/
+:root {
+  color-scheme: dark;
+
+  /* surfaces */
+  --shell: #1a1a21; /* page */
+  --card: #23232d; /* panels and cards */
+  --inner: #282b31; /* fields, pills, nested blocks */
+  --line: rgb(255 255 255 / 0.07);
+  --line-control: #5e5e6b; /* control borders, 3:1 on --shell */
+
+  /* text */
+  --text: #ffffff; /* 15.6:1 on --card */
+  --soft: #c9c9d1; /* 9.5:1 */
+  --muted: #9c9ca8; /* 5.7:1, labels */
+
+  /* brand */
+  --gradient: linear-gradient(120deg, #8b7cf6 0%, #6a5cf2 45%, #3f47ec 100%);
+  --violet: #9d8cff; /* links, focus ring. 5.7:1 on --card */
+
+  /* change kinds: always paired with a word. Changed yellow, added green,
+     removed red, moved violet (the brand colour) */
+  --changed: #f2d86b; /* 11.0:1 on --card */
+  --added: #7fe0a8; /* 9.7:1 */
+  --removed: #ff8a7a; /* 6.8:1 */
+  --moved: var(--violet);
+
+  --radius-l: 20px;
+  --radius-m: 14px;
+
+  font:
+    15px/1.55 'Inter Variable',
+    Inter,
+    system-ui,
+    sans-serif;
+  font-feature-settings: 'cv11', 'ss01';
+}
