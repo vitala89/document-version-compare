@@ -23,4 +23,34 @@ describe('ChangeItem', () => {
     expect(text).toContain('Field added')
     expect(text).toContain('Text removed')
   })
+
+  it('shows the clauses of a nested section inside an added section', () => {
+    const entry: DiffEntry = {
+      id: 'sec-new',
+      kind: 'added',
+      reason: 'added',
+      scope: 'section',
+      title: 'New area',
+      parentId: null,
+      sectionId: 'sec-new',
+      details: [],
+      node: {
+        id: 'sec-new',
+        type: 'section',
+        title: 'New area',
+        children: [
+          { id: 'c1', type: 'clause', title: 'Top rule', children: [] },
+          {
+            id: 'sec-sub',
+            type: 'section',
+            title: 'Sub area',
+            children: [{ id: 'c2', type: 'clause', title: 'Nested rule', children: [] }],
+          },
+        ],
+      },
+    }
+    const text = mount(ChangeItem, { props: { entry, level: 3 } }).text()
+    expect(text).toContain('Top rule')
+    expect(text).toContain('Nested rule')
+  })
 })

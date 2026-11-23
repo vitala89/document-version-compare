@@ -17,10 +17,13 @@ const title = computed(() => {
   return props.entry.title
 })
 const clause = computed(() => (props.entry.node?.type === 'clause' ? props.entry.node : undefined))
-// Whole sections that were added or removed show their clauses inline.
+// Whole sections that were added or removed show their clauses inline,
+// including those of a nested section (one level, as in the data).
 const sectionClauses = computed(() =>
   isSection.value && (props.entry.kind === 'added' || props.entry.kind === 'removed')
-    ? (props.entry.node as SectionNode).children.filter((c): c is ClauseNode => c.type === 'clause')
+    ? (props.entry.node as SectionNode).children.flatMap((c): ClauseNode[] =>
+        c.type === 'clause' ? [c] : c.children.filter((n): n is ClauseNode => n.type === 'clause'),
+      )
     : [],
 )
 const showsWholeClause = computed(
