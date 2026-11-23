@@ -448,11 +448,20 @@ select option:disabled {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+/* The open list overlays the page instead of pushing it down: a taller bar would
+   shift the scroll position and move the reader away from the section they chose. */
 .compact-nav > ul {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
   max-height: 60vh;
   overflow: auto;
   padding: 0 8px 10px;
   border-top: 1px solid var(--line);
+  background: var(--card);
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 10px 24px rgb(0 0 0 / 0.35);
 }
 .document {
   min-width: 0;
