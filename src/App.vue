@@ -50,7 +50,7 @@ const documentLabel = computed(() =>
     </div>
     <ChangeSummary :result="result" />
     <div class="layout">
-      <!-- New key per comparison resets the chosen link. -->
+      <!-- New key per comparison resets the chosen link and closes the narrow-screen list. -->
       <ContentsNav :key="`${base}-${target}-${mode}`" :items="contents" />
       <article id="document" class="document" tabindex="-1" :aria-label="documentLabel">
         <ChangesView v-if="mode === 'changes'" :result="result" />

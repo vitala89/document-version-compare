@@ -283,6 +283,12 @@ select option:disabled {
 .summary .mix-bar {
   grid-column: 1 / -1;
 }
+
+/* mix bar inside the total card, like a spending-limit bar: share of each change kind */
+.noise-note {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
 .mix-bar {
   display: flex;
   gap: 5px;
@@ -397,6 +403,56 @@ select option:disabled {
 }
 .full-change-count {
   color: var(--muted);
+} /* counts cover every kind, so they stay neutral in both views */
+.compact-nav {
+  display: none;
+}
+.compact-nav summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 8px 44px 8px 16px;
+  position: relative;
+}
+.compact-nav summary::-webkit-details-marker {
+  display: none;
+}
+.compact-nav summary::after {
+  content: '';
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border: solid var(--soft);
+  border-width: 0 1.5px 1.5px 0;
+  transform: translateY(-70%) rotate(45deg);
+  transition: transform 0.15s;
+}
+.compact-nav[open] summary::after {
+  transform: translateY(-30%) rotate(225deg);
+}
+.compact-hint {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.compact-label {
+  font-weight: 650;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.compact-nav > ul {
+  max-height: 60vh;
+  overflow: auto;
+  padding: 0 8px 10px;
+  border-top: 1px solid var(--line);
 }
 .document {
   min-width: 0;
@@ -573,6 +629,18 @@ select option:disabled {
 }
 .text-diff .quiet-label {
   color: var(--text);
+} /* Before and After use the same neutral pill as field labels */
+.text-diff del {
+  color: var(--removed);
+  text-decoration-thickness: 1px;
+}
+.text-diff ins {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: var(--text);
+  border-radius: 4px;
+  padding-inline: 2px;
+  background: color-mix(in srgb, var(--added) 20%, transparent);
 }
 .field-diff {
   display: flex;
@@ -666,6 +734,26 @@ select option:disabled {
   .layout {
     display: block;
     padding-top: 12px;
+  }
+  /* Contents becomes a bar pinned to the top while the reader scrolls */
+  .contents {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    padding: 0;
+    margin: 0 -8px 16px;
+    border-radius: 0 0 16px 16px;
+    box-shadow: 0 10px 24px rgb(0 0 0 / 0.35);
+  }
+  .wide-nav {
+    display: none;
+  }
+  .compact-nav {
+    display: block;
+  }
+  .section-head h2,
+  .subsection-heading h3 {
+    scroll-margin-top: 76px;
   } /* clear the pinned bar */
 }
 @media (max-width: 560px) {
