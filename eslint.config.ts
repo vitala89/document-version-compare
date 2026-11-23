@@ -83,7 +83,31 @@ export default defineConfigWithVueTs(
         {
           patterns: [
             {
-              group: ['@/domain/*'],
+              group: ['@/domain/*', '**/domain/*'],
+              allowTypeImports: true,
+              message:
+                'Components get domain data through useComparison or a view-model (docs/architecture.md).',
+            },
+            {
+              group: ['@/security/*', '**/security/*', 'dompurify'],
+              message: 'Only SafeHtml.vue renders sanitized HTML (AGENTS.md, Security).',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    // The one component allowed to use the sanitizer.
+    name: 'app/safe-html',
+    files: ['src/components/SafeHtml.vue'],
+    rules: {
+      '@typescript-eslint/no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['@/domain/*', '**/domain/*'],
               allowTypeImports: true,
               message:
                 'Components get domain data through useComparison or a view-model (docs/architecture.md).',

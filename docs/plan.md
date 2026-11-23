@@ -1,6 +1,6 @@
 # Implementation plan
 
-Status: waiting for approval before any code. Sources: `docs/brief.md`, `docs/questions-and-answers.md`, `data/`, `AGENTS.md`, `docs/architecture.md`.
+Status: approved before any code; kept in sync with the code since. Sources: `docs/brief.md`, `docs/questions-and-answers.md`, `data/`, `AGENTS.md`, `docs/architecture.md`.
 
 ## 1. Data audit and edge cases
 
@@ -34,7 +34,7 @@ Synthetic cases the fixtures do not have, covered by tests on hand-made document
    - Section: title change → one `changed` entry, reason `renamed`. New section → one `added` entry, its clauses are not counted separately. Removed section → one `removed` entry. A section that moved and was renamed is one `moved` entry with a title detail.
    - Clause: one entry per clause, all field and paragraph differences go into its `details`. A moved clause that also changed is one `moved` entry with details. A clause title change together with an added field and an added paragraph is one entry with three details.
    - A clause whose only real details are removed fields gets kind `removed` and reason `field-removed`.
-5. Noise: compare `normalize(plainText(x))`, where `normalize` collapses whitespace, trims, and removes thousand separators between digits. Equal after normalize but different raw → a noise item (`whitespace`, `markup` or `number-format`), not an entry.
+5. Noise: paragraph text compares `normalize(plainText(x))`; titles, labels and field values hold no markup, so they compare `normalize(x)` as plain strings and a literal `<` stays text. `normalize` collapses whitespace, trims, and removes thousand separators between digits. Equal after normalize but different raw → a noise item (`whitespace`, `markup` or `number-format`), not an entry.
 6. Reorder: same parent, same surviving ids, different order → `reorderedParents`, not an entry. Detected in one linear pass.
 7. Section attribution: an entry belongs to the target's top-level section (for removed nodes: the base's). A nested section (`sec-travel`) gets its own count, and the parent count includes it. A moved entry counts in its new section.
 

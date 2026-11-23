@@ -73,3 +73,37 @@ describe('Empty comparison', () => {
     expect(w.text()).toContain('No changes between v3 and v4.')
   })
 })
+
+describe('Screens the reader sees for other pairs', () => {
+  it('shows 11 changes for v1 → v2 and the moved clause with where it came from', async () => {
+    const w = mount(App, { attachTo: document.body })
+    await w.findAll('.pair select')[0]!.setValue('1')
+    await flushPromises()
+    await w.findAll('.pair select')[1]!.setValue('2')
+    await flushPromises()
+    expect(w.find('.summary .stat-value').text()).toBe('11')
+    const leave = w.find('section[aria-labelledby="sec-leave"]')
+    expect(leave.text()).toContain('Moved from Working Hours.')
+    w.unmount()
+  })
+
+  it('shows a removed top-level section as its own group in Changes only', () => {
+    const doc = (version: number, ids: string[]) => ({
+      id: 'doc',
+      version,
+      title: 'Doc',
+      updatedAt: '2026-01-01',
+      children: ids.map((id) => ({
+        id,
+        type: 'section' as const,
+        title: id.toUpperCase(),
+        children: [],
+      })),
+    })
+    const w = mount(ChangesView, {
+      props: { result: diffDocuments(doc(1, ['a', 'gone']), doc(2, ['a'])) },
+    })
+    expect(w.find('h2#gone').text()).toBe('GONE')
+    expect(w.find('.tag').text()).toBe('Removed')
+  })
+})

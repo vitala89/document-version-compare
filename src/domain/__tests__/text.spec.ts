@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { noiseReason, normalize, plainText } from '../text'
+import { noiseReason, normalize, plainNoiseReason, plainText } from '../text'
 
 describe('plainText', () => {
   it('drops tags and keeps words', () => {
@@ -37,5 +37,17 @@ describe('plainText edge cases', () => {
   it('keeps a literal less-than sign and decodes numeric entities', () => {
     expect(plainText('Budget &lt; 500 and budget < 500')).toBe('Budget < 500 and budget < 500')
     expect(plainText('It&#8217;s fine')).toBe('It’s fine')
+  })
+})
+
+describe('plainNoiseReason (titles, labels and values carry no markup)', () => {
+  it('treats a literal < as text, so a real change stays a change', () => {
+    expect(plainNoiseReason('if x<y then', 'if x<z then')).toBeNull()
+    expect(plainNoiseReason('Restricted', '<b>Restricted</b>')).toBeNull()
+  })
+
+  it('still hides whitespace and number format', () => {
+    expect(plainNoiseReason('Working  Time ', 'Working Time')).toBe('whitespace')
+    expect(plainNoiseReason('1,000 EUR', '1000 EUR')).toBe('number-format')
   })
 })

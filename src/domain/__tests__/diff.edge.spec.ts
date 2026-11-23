@@ -97,7 +97,7 @@ describe('diffDocuments: synthetic edge cases', () => {
       doc(1, [section('a', 'A', []), section('b', 'B', [])]),
       doc(2, [section('b', 'B', []), section('a', 'A', [])]),
     )
-    expect(result.reorderedParents).toEqual(['root'])
+    expect(result.reorderedParents).toEqual(['doc'])
     expect(result.counts.total).toBe(0)
   })
 
@@ -161,5 +161,41 @@ describe('diffDocuments: synthetic edge cases', () => {
     const result = diffDocuments(doc(1, tree), doc(2, tree))
     expect(result.entries).toEqual([])
     expect(result.counts.total).toBe(0)
+  })
+
+  it('counts a change next to a literal < in a field value and a clause title', () => {
+    const field = (value: string): ClauseNode => ({
+      id: 'c',
+      type: 'clause',
+      title: 'C',
+      children: [{ id: 'f', type: 'field', label: 'Rule', value }],
+    })
+    const values = diffDocuments(
+      doc(1, [section('s', 'S', [field('a<b')])]),
+      doc(2, [section('s', 'S', [field('a<c')])]),
+    )
+    expect(values.entries[0]!.details).toEqual([
+      { type: 'field-value', label: 'Rule', before: 'a<b', after: 'a<c' },
+    ])
+
+    const titles = diffDocuments(
+      doc(1, [section('s', 'S', [clause('c', 'if x<y')])]),
+      doc(2, [section('s', 'S', [clause('c', 'if x<z')])]),
+    )
+    expect(titles.entries[0]).toMatchObject({ id: 'c', reason: 'renamed' })
+  })
+
+  it('keeps the top-level order apart from a section whose real id is "root"', () => {
+    const result = diffDocuments(
+      doc(1, [
+        section('root', 'Root', [clause('c1', 'C1'), clause('c2', 'C2')]),
+        section('b', 'B', []),
+      ]),
+      doc(2, [
+        section('b', 'B', []),
+        section('root', 'Root', [clause('c2', 'C2'), clause('c1', 'C1')]),
+      ]),
+    )
+    expect(result.reorderedParents).toEqual(['doc', 'root'])
   })
 })

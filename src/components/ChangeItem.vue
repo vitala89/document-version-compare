@@ -4,7 +4,7 @@ import ClauseBody from '@/components/ClauseBody.vue'
 import TextDiff from '@/components/TextDiff.vue'
 import ValuePair from '@/components/ValuePair.vue'
 import type { ClauseNode, DiffEntry, SectionNode } from '@/domain/types'
-import { reasonLabel } from '@/view-models/format'
+import { lineLabel, reasonLabel, sectionHeading } from '@/view-models/format'
 
 const props = defineProps<{ entry: DiffEntry; level: 3 | 4 }>()
 
@@ -12,15 +12,18 @@ const heading = computed(() => `h${props.level}`)
 const subHeading = computed(() => `h${props.level + 1}`)
 const isSection = computed(() => props.entry.scope === 'section')
 const title = computed(() => {
-  if (isSection.value && props.entry.reason === 'renamed') return 'Section name'
-  if (isSection.value && props.entry.kind === 'added') return 'New section'
+  if (isSection.value && props.entry.reason === 'renamed') return sectionHeading.renamed
+  if (isSection.value && props.entry.kind === 'added') return sectionHeading.added
   return props.entry.title
 })
 const clause = computed(() => (props.entry.node?.type === 'clause' ? props.entry.node : undefined))
-// Whole sections that were added or removed show their clauses inline.
+// Whole sections that were added or removed show their clauses inline,
+// including those of a nested section (one level, as in the data).
 const sectionClauses = computed(() =>
   isSection.value && (props.entry.kind === 'added' || props.entry.kind === 'removed')
-    ? (props.entry.node as SectionNode).children.filter((c): c is ClauseNode => c.type === 'clause')
+    ? (props.entry.node as SectionNode).children.flatMap((c): ClauseNode[] =>
+        c.type === 'clause' ? [c] : c.children.filter((n): n is ClauseNode => n.type === 'clause'),
+      )
     : [],
 )
 const showsWholeClause = computed(
@@ -30,8 +33,9 @@ const isDraft = computed(() => clause.value?.status === 'draft' && props.entry.k
 const nowEmpty = computed(
   () => props.entry.reason === 'field-removed' && clause.value?.children.length === 0,
 )
-// Inside a changed clause each added or removed line says what it is.
-const inChangedClause = computed(() => props.entry.reason === 'changed')
+// Each added or removed line says what it is in words, moved clauses included.
+// Only field-removed skips it: its tag already says "Field removed".
+const inChangedClause = computed(() => props.entry.reason !== 'field-removed')
 </script>
 
 <template>
@@ -82,9 +86,7 @@ const inChangedClause = computed(() => props.entry.reason === 'changed')
         v-else-if="detail.type === 'field-added' || detail.type === 'field-removed'"
         class="value-line"
       >
-        <span v-if="inChangedClause" class="quiet-label">{{
-          detail.type === 'field-added' ? 'Field added' : 'Field removed'
-        }}</span>
+        <span v-if="inChangedClause" class="quiet-label">{{ lineLabel[detail.type] }}</span>
         <span class="context">{{ detail.label }}</span>
         <span :class="detail.type === 'field-removed' ? 'old-value' : 'after'">{{
           detail.value
@@ -94,9 +96,7 @@ const inChangedClause = computed(() => props.entry.reason === 'changed')
         v-else-if="detail.type === 'text-added' || detail.type === 'text-removed'"
         class="value-line"
       >
-        <span v-if="inChangedClause" class="quiet-label">{{
-          detail.type === 'text-added' ? 'Text added' : 'Text removed'
-        }}</span>
+        <span v-if="inChangedClause" class="quiet-label">{{ lineLabel[detail.type] }}</span>
         <span :class="detail.type === 'text-removed' ? 'old-value' : 'after'">{{
           detail.text
         }}</span>

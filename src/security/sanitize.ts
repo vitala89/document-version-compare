@@ -5,6 +5,9 @@ const config = {
   ALLOWED_TAGS: ['b', 'strong', 'i', 'em', 'code', 'a'],
   ALLOWED_ATTR: ['href'],
   ALLOWED_URI_REGEXP: /^https?:/i,
+  // DOMPurify keeps data-* and aria-* by default; untrusted aria could hide text or rename a link.
+  ALLOW_DATA_ATTR: false,
+  ALLOW_ARIA_ATTR: false,
 }
 
 // Private instance, so the link hook does not leak into other DOMPurify users.

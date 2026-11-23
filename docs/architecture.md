@@ -1,6 +1,6 @@
 # Architecture
 
-Status: written in the plan phase, before any application code.
+Status: written and approved in the plan phase, before any application code; decisions added as they were made.
 
 ## Problem and scope
 

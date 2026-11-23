@@ -26,3 +26,15 @@ export function noiseReason(before: string, after: string): NoiseReason | null {
   if (collapse(plainBefore) === collapse(plainAfter)) return 'whitespace'
   return 'number-format'
 }
+
+/**
+ * Noise check for titles, labels and field values. Only paragraph text may hold
+ * markup (data/README.md), so these are compared as plain strings: a literal
+ * "<" stays text and a change next to it stays a change.
+ */
+export function plainNoiseReason(before: string, after: string): NoiseReason | null {
+  if (before === after) return null
+  if (normalize(before) !== normalize(after)) return null
+  if (collapse(before) === collapse(after)) return 'whitespace'
+  return 'number-format'
+}

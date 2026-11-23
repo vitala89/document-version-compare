@@ -32,11 +32,6 @@ export function contentsTree(result: DiffResult, mode: 'changes' | 'full'): Cont
   return [...tree, ...removed]
 }
 
-/**
- * Which section the reader is in: the last heading whose top has passed the
- * reading line. Short final sections are reached because readingLine() slides
- * the line down over the last screen.
- */
 export interface HeadingPosition {
   id: string
   top: number
@@ -45,6 +40,11 @@ export interface HeadingPosition {
   parentId?: string
 }
 
+/**
+ * Which section the reader is in: the last heading whose top has passed the
+ * reading line. Short final sections are reached because readingLine() slides
+ * the line down over the last screen.
+ */
 export function pickActive(headings: HeadingPosition[], readingLine: number): string | null {
   let active: HeadingPosition | null = null
   for (const h of headings) {
@@ -57,8 +57,9 @@ export function pickActive(headings: HeadingPosition[], readingLine: number): st
 
 /**
  * Where the reading line sits. Near the top while more than one screen is left
- * below; over the last screen (or the whole scroll on short pages) it slides to the bottom of the window, so short
- * sections at the end of the page cross it one by one instead of being skipped.
+ * below; over the last screen (or the whole scroll on short pages) it slides to
+ * the bottom of the window, so short sections at the end of the page cross it
+ * one by one instead of being skipped.
  * No extra space is added to the page.
  */
 export function readingLine(at: {
