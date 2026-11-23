@@ -1,13 +1,31 @@
 <script setup lang="ts">
-import { nextTick, ref } from 'vue'
+import { computed, nextTick, ref } from 'vue'
 import ContentsList from '@/components/ContentsList.vue'
+import { useScrollSpy } from '@/composables/useScrollSpy'
 import type { ContentsItem } from '@/view-models/contents'
 
-defineProps<{ items: ContentsItem[] }>()
+const props = defineProps<{ items: ContentsItem[] }>()
 const current = ref<string | null>(null)
+
+const flat = (
+  items: ContentsItem[],
+  parent?: ContentsItem,
+): { id: string; label: string; parentId?: string }[] =>
+  items.flatMap((item) => [
+    {
+      id: item.id,
+      parentId: parent?.id,
+      label: `${parent ? parent.title + ' / ' : ''}${item.title}`,
+    },
+    ...flat(item.children, item),
+  ])
+const options = computed(() => flat(props.items))
+
+const { lockAfterJump } = useScrollSpy(() => options.value, current)
 
 async function goTo(id: string) {
   current.value = id
+  lockAfterJump()
   await nextTick()
   const heading = document.getElementById(id)
   if (!heading) return
