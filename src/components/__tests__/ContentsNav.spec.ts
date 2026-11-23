@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
+import { nextTick } from 'vue'
 import ContentsNav from '../ContentsNav.vue'
 
 const items = [
@@ -49,5 +50,46 @@ describe('ContentsNav', () => {
     expect(sheet.open).toBe(false)
     expect(document.activeElement?.tagName).toBe('SUMMARY')
     wrapper.unmount()
+  })
+
+  it('keeps the current section when the open list covers the page', async () => {
+    // Positions measured on a 390x844 phone: the open list ends at 347px, the closed bar at 52px.
+    const rect =
+      (top: number, bottom = top + 30) =>
+      () =>
+        ({ top, bottom }) as DOMRect
+    const page = document.createElement('div')
+    page.innerHTML = `
+      <section><h2 id="sec-expenses"></h2></section>
+      <section id="travel-section"><h3 id="sec-travel"></h3></section>
+      <section><h2 id="sec-intro"></h2></section>`
+    document.body.append(page)
+    page.querySelector('#sec-expenses')!.getBoundingClientRect = rect(76)
+    page.querySelector('#sec-travel')!.getBoundingClientRect = rect(300)
+    page.querySelector('#travel-section')!.getBoundingClientRect = rect(290, 600)
+    page.querySelector('#sec-intro')!.getBoundingClientRect = rect(900)
+    Object.defineProperty(window, 'scrollY', { value: 500, configurable: true })
+    Object.defineProperty(document.documentElement, 'scrollHeight', {
+      value: 4000,
+      configurable: true,
+    })
+    vi.stubGlobal('requestAnimationFrame', (run: FrameRequestCallback) => {
+      run(0)
+      return 1
+    })
+
+    const wrapper = mount(ContentsNav, { props: { items }, attachTo: document.body })
+    const sheet = wrapper.find('details.compact-nav').element as HTMLDetailsElement
+    Object.defineProperty(sheet, 'offsetParent', { get: () => document.body })
+    sheet.getBoundingClientRect = rect(0, 347)
+    sheet.querySelector('summary')!.getBoundingClientRect = rect(0, 52)
+    sheet.open = true
+    window.dispatchEvent(new Event('scroll'))
+    await nextTick()
+
+    expect(wrapper.find('.compact-label').text()).toBe('Expenses')
+    wrapper.unmount()
+    page.remove()
+    vi.unstubAllGlobals()
   })
 })

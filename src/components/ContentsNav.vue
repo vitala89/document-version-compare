@@ -27,7 +27,11 @@ const currentLabel = computed(
 )
 
 // The bar is hidden (no offsetParent) on wide screens, so it covers nothing there.
-const barBottom = () => (sheet.value?.offsetParent ? sheet.value.getBoundingClientRect().bottom : 0)
+// Measured on the summary, not the whole details: an open list is not where the reader reads.
+const barBottom = () =>
+  sheet.value?.offsetParent
+    ? (sheet.value.querySelector('summary')?.getBoundingClientRect().bottom ?? 0)
+    : 0
 const { lockAfterJump } = useScrollSpy(() => options.value, current, barBottom)
 
 async function goTo(id: string) {
