@@ -43,10 +43,26 @@ describe('sectionCounts', () => {
       'sec-comms': 1,
       'sec-remote': 1,
     })
-    expect(sectionCounts(compare(1, 3).entries)).toMatchObject({
+    expect(sectionCounts(compare(1, 2).entries)).toEqual({
+      'sec-intro': 1,
+      'sec-hours': 1,
+      'sec-leave': 2,
+      'sec-expenses': 1,
+      'sec-travel': 1,
+      'sec-security': 2,
+      'sec-tools': 3,
+      'sec-remote': 1,
+    })
+    expect(sectionCounts(compare(1, 3).entries)).toEqual({
+      'sec-intro': 1,
+      'sec-hours': 2,
+      'sec-leave': 2,
       'sec-expenses': 3,
       'sec-travel': 2,
+      'sec-security': 3,
       'sec-tools': 7,
+      'sec-comms': 1,
+      'sec-remote': 1,
     })
   })
 })

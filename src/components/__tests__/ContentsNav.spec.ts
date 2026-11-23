@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { describe, expect, it, vi } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import ContentsNav from '../ContentsNav.vue'
 
@@ -12,6 +12,19 @@ const items = [
   },
   { id: 'sec-intro', title: 'Introduction', count: 0, children: [] },
 ]
+
+// Page geometry a test may fake; restored after every test, even a failing one.
+const scrollYBefore = Object.getOwnPropertyDescriptor(window, 'scrollY')
+const scrollHeightBefore = Object.getOwnPropertyDescriptor(document.documentElement, 'scrollHeight')
+afterEach(() => {
+  if (scrollYBefore) Object.defineProperty(window, 'scrollY', scrollYBefore)
+  else delete (window as { scrollY?: number }).scrollY
+  if (scrollHeightBefore)
+    Object.defineProperty(document.documentElement, 'scrollHeight', scrollHeightBefore)
+  else delete (document.documentElement as { scrollHeight?: number }).scrollHeight
+  vi.unstubAllGlobals()
+  document.body.innerHTML = ''
+})
 
 describe('ContentsNav', () => {
   it('gives each link a readable name with its count', () => {
@@ -107,7 +120,5 @@ describe('ContentsNav', () => {
 
     expect(wrapper.find('.compact-label').text()).toBe('Expenses')
     wrapper.unmount()
-    page.remove()
-    vi.unstubAllGlobals()
   })
 })

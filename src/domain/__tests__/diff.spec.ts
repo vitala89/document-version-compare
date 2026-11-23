@@ -16,6 +16,16 @@ describe('diffDocuments: totals per pair (docs/plan.md section 3)', () => {
     expect(compare(base, target).counts).toEqual(expected)
   })
 
+  it.each([
+    [1, 2, 2, ['sec-comms']],
+    [2, 3, 0, []],
+    [1, 3, 2, ['sec-comms']],
+  ])('v%i → v%i hides %i noise items and reports reordered parents', (base, target, n, parents) => {
+    const result = compare(base, target)
+    expect(result.noise).toHaveLength(n)
+    expect(result.reorderedParents).toEqual(parents)
+  })
+
   it('rejects a newer base', () => {
     expect(() => compare(3, 2)).toThrow('Base version must be older than target version')
   })
