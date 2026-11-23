@@ -3,6 +3,7 @@ import { computed, ref } from 'vue'
 import ChangeSummary from '@/components/ChangeSummary.vue'
 import ChangesView from '@/components/ChangesView.vue'
 import ContentsNav from '@/components/ContentsNav.vue'
+import FullDocumentView from '@/components/FullDocumentView.vue'
 import VersionPicker from '@/components/VersionPicker.vue'
 import { useComparison, versions } from '@/composables/useComparison'
 import { contentsTree } from '@/view-models/contents'
@@ -53,6 +54,7 @@ const documentLabel = computed(() =>
       <ContentsNav :key="`${base}-${target}-${mode}`" :items="contents" />
       <article id="document" class="document" tabindex="-1" :aria-label="documentLabel">
         <ChangesView v-if="mode === 'changes'" :result="result" />
+        <FullDocumentView v-else :result="result" />
       </article>
     </div>
   </main>
