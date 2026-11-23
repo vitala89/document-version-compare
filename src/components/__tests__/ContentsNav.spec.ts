@@ -40,6 +40,24 @@ describe('ContentsNav', () => {
     wrapper.unmount()
   })
 
+  it('moves focus to the chosen heading after a jump', async () => {
+    const heading = document.createElement('h3')
+    heading.id = 'sec-travel'
+    heading.tabIndex = -1
+    heading.scrollIntoView = vi.fn<() => void>()
+    document.body.append(heading)
+    const wrapper = mount(ContentsNav, { props: { items }, attachTo: document.body })
+    await wrapper
+      .findAll('.wide-nav a')
+      .find((a) => a.text().startsWith('Travel'))!
+      .trigger('click')
+    await nextTick()
+    expect(document.activeElement?.id).toBe('sec-travel')
+    expect(heading.scrollIntoView).toHaveBeenCalled()
+    wrapper.unmount()
+    heading.remove()
+  })
+
   it('closes the open list on Escape even when focus is outside the bar', async () => {
     // After a jump focus sits on the section heading, not inside the bar.
     const wrapper = mount(ContentsNav, { props: { items }, attachTo: document.body })
