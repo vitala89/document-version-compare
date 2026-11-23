@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import ChangeSummary from '@/components/ChangeSummary.vue'
+import ChangesView from '@/components/ChangesView.vue'
 import ContentsNav from '@/components/ContentsNav.vue'
 import VersionPicker from '@/components/VersionPicker.vue'
 import { useComparison, versions } from '@/composables/useComparison'
@@ -50,7 +51,9 @@ const documentLabel = computed(() =>
     <div class="layout">
       <!-- New key per comparison resets the chosen link. -->
       <ContentsNav :key="`${base}-${target}-${mode}`" :items="contents" />
-      <article id="document" class="document" tabindex="-1" :aria-label="documentLabel"></article>
+      <article id="document" class="document" tabindex="-1" :aria-label="documentLabel">
+        <ChangesView v-if="mode === 'changes'" :result="result" />
+      </article>
     </div>
   </main>
 </template>
