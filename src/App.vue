@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import ChangeSummary from '@/components/ChangeSummary.vue'
 import VersionPicker from '@/components/VersionPicker.vue'
 import { useComparison, versions } from '@/composables/useComparison'
 
@@ -39,5 +40,6 @@ const result = useComparison(base, target)
       <h1>{{ result.target.title }}</h1>
       <VersionPicker v-model:base="base" v-model:target="target" :versions="versions" />
     </div>
+    <ChangeSummary :result="result" />
   </main>
 </template>
