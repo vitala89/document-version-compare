@@ -162,4 +162,26 @@ describe('diffDocuments: synthetic edge cases', () => {
     expect(result.entries).toEqual([])
     expect(result.counts.total).toBe(0)
   })
+
+  it('counts a change next to a literal < in a field value and a clause title', () => {
+    const field = (value: string): ClauseNode => ({
+      id: 'c',
+      type: 'clause',
+      title: 'C',
+      children: [{ id: 'f', type: 'field', label: 'Rule', value }],
+    })
+    const values = diffDocuments(
+      doc(1, [section('s', 'S', [field('a<b')])]),
+      doc(2, [section('s', 'S', [field('a<c')])]),
+    )
+    expect(values.entries[0]!.details).toEqual([
+      { type: 'field-value', label: 'Rule', before: 'a<b', after: 'a<c' },
+    ])
+
+    const titles = diffDocuments(
+      doc(1, [section('s', 'S', [clause('c', 'if x<y')])]),
+      doc(2, [section('s', 'S', [clause('c', 'if x<z')])]),
+    )
+    expect(titles.entries[0]).toMatchObject({ id: 'c', reason: 'renamed' })
+  })
 })

@@ -1,5 +1,5 @@
 import { indexDocument, type IndexedNode, type NodeIndex } from './flatten'
-import { noiseReason, plainText } from './text'
+import { noiseReason, plainNoiseReason, plainText } from './text'
 import type {
   ChangeKind,
   ChangeReason,
@@ -171,7 +171,7 @@ function clauseDetails(
         details.push({ type: 'field-label', before: was.node.label, after: child.label })
       }
       if (was.node.value !== child.value) {
-        const reason = noiseReason(was.node.value, child.value)
+        const reason = plainNoiseReason(was.node.value, child.value)
         if (reason) noise.push({ id: child.id, reason })
         else
           details.push({
@@ -210,10 +210,10 @@ function clauseDetails(
   return details
 }
 
-/** True for a real change. Noise-only differences are recorded and return false. */
+/** True for a real change in a title or label. Noise-only differences are recorded and return false. */
 function textChanged(id: string, before: string, after: string, noise: Noise[]): boolean {
   if (before === after) return false
-  const reason = noiseReason(before, after)
+  const reason = plainNoiseReason(before, after)
   if (reason) noise.push({ id, reason })
   return reason === null
 }
