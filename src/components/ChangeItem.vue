@@ -30,8 +30,9 @@ const isDraft = computed(() => clause.value?.status === 'draft' && props.entry.k
 const nowEmpty = computed(
   () => props.entry.reason === 'field-removed' && clause.value?.children.length === 0,
 )
-// Inside a changed clause each added or removed line says what it is.
-const inChangedClause = computed(() => props.entry.reason === 'changed')
+// Each added or removed line says what it is in words, moved clauses included.
+// Only field-removed skips it: its tag already says "Field removed".
+const inChangedClause = computed(() => props.entry.reason !== 'field-removed')
 </script>
 
 <template>
