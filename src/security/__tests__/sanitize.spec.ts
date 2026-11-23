@@ -36,4 +36,10 @@ describe('sanitizeHtml', () => {
       sanitizeHtml('<em onclick="x()">a</em><script>alert(1)</script><span style="x">b</span>'),
     ).toBe('<em>a</em>b')
   })
+
+  it('drops data and aria attributes, so the text cannot hide content or rename a link', () => {
+    expect(sanitizeHtml('<b data-x="1" aria-hidden="true" aria-label="fake">t</b>')).toBe(
+      '<b>t</b>',
+    )
+  })
 })
