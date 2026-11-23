@@ -1,6 +1,6 @@
 # Implementation plan
 
-Status: waiting for approval before any code. Sources: `docs/brief.md`, `docs/questions-and-answers.md`, `data/`, `AGENTS.md`, `docs/architecture.md`.
+Status: approved before any code; kept in sync with the code since. Sources: `docs/brief.md`, `docs/questions-and-answers.md`, `data/`, `AGENTS.md`, `docs/architecture.md`.
 
 ## 1. Data audit and edge cases
 

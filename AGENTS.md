@@ -8,8 +8,8 @@ A reader opens a Team Handbook and sees what changed between two versions. They 
 
 - Brief: `docs/brief.md`
 - Questions and the reviewer's answers: `docs/questions-and-answers.md`
-- Architecture and diagram: `docs/architecture.md` (to be written next)
-- Plan and expected counts: `docs/plan.md` (to be written next)
+- Architecture and diagram: `docs/architecture.md`
+- Plan and expected counts: `docs/plan.md`
 
 ## Stack
 
