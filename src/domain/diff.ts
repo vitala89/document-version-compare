@@ -45,11 +45,16 @@ export function diffDocuments(base: DocumentVersion, target: DocumentVersion): D
         continue
       }
       const old = previous.node as SectionNode
+      // Checked before the move, so a section that moved and was renamed keeps its rename.
+      const details: Detail[] = textChanged(id, old.title, current.node.title, noise)
+        ? [{ type: 'title', before: old.title, after: current.node.title }]
+        : []
       if (previous.parentId !== current.parentId) {
         const from = before.get(previous.parentId ?? '')?.node as SectionNode | undefined
-        found.push(entry('moved', 'moved', current, { movedFrom: from?.title, node: current.node }))
-      } else if (textChanged(id, old.title, current.node.title, noise)) {
-        const details: Detail[] = [{ type: 'title', before: old.title, after: current.node.title }]
+        found.push(
+          entry('moved', 'moved', current, { details, movedFrom: from?.title, node: current.node }),
+        )
+      } else if (details.length > 0) {
         found.push(entry('changed', 'renamed', current, { details }))
       }
     }

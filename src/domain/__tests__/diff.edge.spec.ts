@@ -53,6 +53,21 @@ describe('diffDocuments: synthetic edge cases', () => {
     expect(result.entries[0]).toMatchObject({ sectionId: 'b', subsectionId: 'n', parentId: 'b' })
   })
 
+  it('keeps the rename on a nested section that also moved', () => {
+    const result = diffDocuments(
+      doc(1, [section('a', 'A', [section('n', 'Old', [])]), section('b', 'B', [])]),
+      doc(2, [section('a', 'A', []), section('b', 'B', [section('n', 'New', [])])]),
+    )
+    expect(result.entries).toEqual([
+      expect.objectContaining({
+        id: 'n',
+        kind: 'moved',
+        movedFrom: 'A',
+        details: [{ type: 'title', before: 'Old', after: 'New' }],
+      }),
+    ])
+  })
+
   it('reports a renamed nested section under its parent', () => {
     const result = diffDocuments(
       doc(1, [section('a', 'A', [section('n', 'Old', [])])]),
