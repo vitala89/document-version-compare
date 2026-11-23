@@ -124,7 +124,8 @@ function entry(
 
 function classifyClauseChange(at: IndexedNode, details: Detail[]): DiffEntry {
   const node = at.node as ClauseNode
-  if (details.every((d) => d.type === 'field-removed' || d.type === 'text-removed')) {
+  // Only lost fields make a clause field-removed (AGENTS.md, docs/plan.md section 2).
+  if (details.every((d) => d.type === 'field-removed')) {
     return entry('removed', 'field-removed', at, { details, node })
   }
   if (details.every((d) => d.type === 'title' || d.type === 'field-label')) {

@@ -122,6 +122,25 @@ describe('diffDocuments: synthetic edge cases', () => {
     ])
   })
 
+  it('counts a clause that only lost a paragraph as changed, not field-removed', () => {
+    const before: ClauseNode = {
+      id: 'c',
+      type: 'clause',
+      title: 'C',
+      children: [
+        { id: 'f-c', type: 'field', label: 'Limit', value: '50 EUR' },
+        { id: 'p-c', type: 'paragraph', text: 'Old rule.' },
+      ],
+    }
+    const after: ClauseNode = { ...before, children: [before.children[0]!] }
+    const result = diffDocuments(
+      doc(1, [section('s', 'S', [before])]),
+      doc(2, [section('s', 'S', [after])]),
+    )
+    expect(result.entries[0]).toMatchObject({ id: 'c', kind: 'changed', reason: 'changed' })
+    expect(result.entries[0]!.details).toEqual([{ type: 'text-removed', text: 'Old rule.' }])
+  })
+
   it('finds no changes between identical versions', () => {
     const tree = [section('s', 'S', [clause('c', 'C')])]
     const result = diffDocuments(doc(1, tree), doc(2, tree))
