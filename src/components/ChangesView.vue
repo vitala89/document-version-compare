@@ -21,21 +21,27 @@ const countText = (id: string) => changeCount(counts.value[id] ?? 0)
       <h2 :id="group.id" tabindex="-1">{{ group.title }}</h2>
       <span class="count">{{ countText(group.id) }}</span>
     </div>
-    <section
-      v-for="sub in group.subsections"
-      :key="sub.id"
-      class="subsection"
-      :aria-labelledby="sub.id"
+    <!-- Rows in document order: a clause and a nested section appear where they are in the document. -->
+    <template
+      v-for="item in group.items"
+      :key="item.type === 'entry' ? item.entry.id : item.subsection.id"
     >
-      <div class="subsection-heading entry-status">
-        <h3 :id="sub.id" tabindex="-1">
-          <span class="section-parent">{{ group.title }} /</span> {{ sub.title }}
-        </h3>
-      </div>
-      <div class="subsection-items">
-        <ChangeItem v-for="entry in sub.entries" :key="entry.id" :entry="entry" :level="4" />
-      </div>
-    </section>
-    <ChangeItem v-for="entry in group.entries" :key="entry.id" :entry="entry" :level="3" />
+      <ChangeItem v-if="item.type === 'entry'" :entry="item.entry" :level="3" />
+      <section v-else class="subsection" :aria-labelledby="item.subsection.id">
+        <div class="subsection-heading entry-status">
+          <h3 :id="item.subsection.id" tabindex="-1">
+            <span class="section-parent">{{ group.title }} /</span> {{ item.subsection.title }}
+          </h3>
+        </div>
+        <div class="subsection-items">
+          <ChangeItem
+            v-for="entry in item.subsection.entries"
+            :key="entry.id"
+            :entry="entry"
+            :level="4"
+          />
+        </div>
+      </section>
+    </template>
   </section>
 </template>

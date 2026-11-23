@@ -1,42 +1,67 @@
 import { diffWordsWithSpace } from 'diff'
 import { plainText } from '@/domain/text'
-import type { DiffEntry, DiffResult, SectionNode } from '@/domain/types'
+import type { DiffEntry, DiffResult, DocumentVersion, SectionNode } from '@/domain/types'
+
+export interface ChangeSubsection {
+  id: string
+  title: string
+  entries: DiffEntry[]
+}
+
+/** One row of a group, in document order: an entry, or a nested section with its entries. */
+export type ChangeGroupItem =
+  { type: 'entry'; entry: DiffEntry } | { type: 'subsection'; subsection: ChangeSubsection }
 
 export interface ChangeGroup {
   id: string
   title: string
   entries: DiffEntry[]
-  subsections: { id: string; title: string; entries: DiffEntry[] }[]
+  subsections: ChangeSubsection[]
+  items: ChangeGroupItem[]
+}
+
+/** A top-level or one-level nested section by id. */
+function findSection(doc: DocumentVersion, id: string): SectionNode | undefined {
+  for (const top of doc.children) {
+    if (top.id === id) return top
+    for (const child of top.children) {
+      if (child.type === 'section' && child.id === id) return child
+    }
+  }
+  return undefined
 }
 
 /**
  * Entries of the Changes only view, grouped by top-level section, with a
- * nested section as its own group inside its parent. Sections keep the order
- * of the entries; a removed top-level section keeps its old title.
+ * nested section as its own group inside its parent. Rows keep document order.
+ * A section that is gone from the target keeps its title from the base.
  */
 export function changeGroups(result: DiffResult): ChangeGroup[] {
+  const titleOf = (id: string, fallback: string) =>
+    (findSection(result.target, id) ?? findSection(result.base, id))?.title ?? fallback
   const groups = new Map<string, ChangeGroup>()
   for (const entry of result.entries) {
-    const section = result.target.children.find((s) => s.id === entry.sectionId)
     let group = groups.get(entry.sectionId)
     if (!group) {
       group = {
         id: entry.sectionId,
-        title: section?.title ?? entry.title,
+        title: titleOf(entry.sectionId, entry.title),
         entries: [],
         subsections: [],
+        items: [],
       }
       groups.set(entry.sectionId, group)
     }
     if (!entry.subsectionId) {
       group.entries.push(entry)
+      group.items.push({ type: 'entry', entry })
       continue
     }
     let sub = group.subsections.find((s) => s.id === entry.subsectionId)
     if (!sub) {
-      const nested = section?.children.find((c): c is SectionNode => c.id === entry.subsectionId)
-      sub = { id: entry.subsectionId, title: nested?.title ?? entry.title, entries: [] }
+      sub = { id: entry.subsectionId, title: titleOf(entry.subsectionId, entry.title), entries: [] }
       group.subsections.push(sub)
+      group.items.push({ type: 'subsection', subsection: sub })
     }
     sub.entries.push(entry)
   }

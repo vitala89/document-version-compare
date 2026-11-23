@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { diffDocuments } from '@/domain/diff'
 import { getVersion } from '@/domain/versions'
+import type { ClauseNode, DocumentVersion, SectionNode } from '@/domain/types'
 import { changeGroups, wordSegments } from '../changes'
 
 const compare = (base: number, target: number) =>
@@ -59,5 +60,49 @@ describe('wordSegments', () => {
     const segments = wordSegments(before, after)
     expect(segments.before.map((s) => s.text).join('')).toBe(before)
     expect(segments.after.map((s) => s.text).join('')).toBe(after)
+  })
+})
+
+describe('changeGroups on synthetic documents', () => {
+  const clause = (id: string, text = 'Text.'): ClauseNode => ({
+    id,
+    type: 'clause',
+    title: id.toUpperCase(),
+    children: [{ id: `p-${id}`, type: 'paragraph', text }],
+  })
+  const section = (id: string, children: (SectionNode | ClauseNode)[]): SectionNode => ({
+    id,
+    type: 'section',
+    title: id.toUpperCase(),
+    children,
+  })
+  const doc = (version: number, children: SectionNode[]): DocumentVersion => ({
+    id: 'doc',
+    version,
+    title: 'Doc',
+    updatedAt: '2026-01-01',
+    children,
+  })
+
+  it('keeps document order when a clause comes before a nested section', () => {
+    const result = diffDocuments(
+      doc(1, [section('a', [clause('c', 'Old.'), section('n', [clause('d', 'Old.')])])]),
+      doc(2, [section('a', [clause('c', 'New.'), section('n', [clause('d', 'New.')])])]),
+    )
+    const items = changeGroups(result)[0]!.items
+    expect(items.map((i) => (i.type === 'entry' ? i.entry.id : i.subsection.id))).toEqual([
+      'c',
+      'n',
+    ])
+  })
+
+  it('names a nested section from the base when it is gone from that place in the target', () => {
+    // n moved from A to B; its clause c was removed, so c is reported under A / n.
+    const result = diffDocuments(
+      doc(1, [section('a', [section('n', [clause('c'), clause('d')])]), section('b', [])]),
+      doc(2, [section('a', []), section('b', [section('n', [clause('d')])])]),
+    )
+    const a = changeGroups(result).find((g) => g.id === 'a')!
+    expect(a.subsections.map((s) => s.title)).toEqual(['N'])
   })
 })
