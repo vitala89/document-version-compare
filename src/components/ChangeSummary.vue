@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { changeCount } from '@/view-models/format'
+import { changeCount, changeNoun, kindLabel } from '@/view-models/format'
 import type { ChangeKind, DiffResult } from '@/domain/types'
 
 const props = defineProps<{ result: DiffResult }>()
@@ -21,12 +21,13 @@ const hidden = computed(() => {
     <p class="sr-only" aria-live="polite">{{ changeCount(total) }} between {{ pair }}.</p>
     <div class="summary-total">
       <strong class="stat-value">{{ total }}</strong>
-      <span class="summary-caption">{{ total === 1 ? 'change' : 'changes' }}</span>
+      <span class="summary-caption">{{ changeNoun(total) }}</span>
       <span class="pair-chip">{{ pair }}</span>
     </div>
     <ul class="summary-kinds" aria-label="Change breakdown">
       <li v-for="p in parts" :key="p.kind" :class="[p.kind, { 'is-zero': p.count === 0 }]">
-        <span class="dot" aria-hidden="true" /><strong>{{ p.count }}</strong> {{ p.kind }}
+        <span class="dot" aria-hidden="true" /><strong>{{ p.count }}</strong>
+        {{ kindLabel[p.kind] }}
       </li>
     </ul>
     <span v-if="hidden" class="noise-note">{{ hidden }}</span>

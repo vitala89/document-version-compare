@@ -4,7 +4,7 @@ import ClauseBody from '@/components/ClauseBody.vue'
 import TextDiff from '@/components/TextDiff.vue'
 import ValuePair from '@/components/ValuePair.vue'
 import type { ClauseNode, DiffEntry, SectionNode } from '@/domain/types'
-import { reasonLabel } from '@/view-models/format'
+import { lineLabel, reasonLabel, sectionHeading } from '@/view-models/format'
 
 const props = defineProps<{ entry: DiffEntry; level: 3 | 4 }>()
 
@@ -12,8 +12,8 @@ const heading = computed(() => `h${props.level}`)
 const subHeading = computed(() => `h${props.level + 1}`)
 const isSection = computed(() => props.entry.scope === 'section')
 const title = computed(() => {
-  if (isSection.value && props.entry.reason === 'renamed') return 'Section name'
-  if (isSection.value && props.entry.kind === 'added') return 'New section'
+  if (isSection.value && props.entry.reason === 'renamed') return sectionHeading.renamed
+  if (isSection.value && props.entry.kind === 'added') return sectionHeading.added
   return props.entry.title
 })
 const clause = computed(() => (props.entry.node?.type === 'clause' ? props.entry.node : undefined))
@@ -83,9 +83,7 @@ const inChangedClause = computed(() => props.entry.reason !== 'field-removed')
         v-else-if="detail.type === 'field-added' || detail.type === 'field-removed'"
         class="value-line"
       >
-        <span v-if="inChangedClause" class="quiet-label">{{
-          detail.type === 'field-added' ? 'Field added' : 'Field removed'
-        }}</span>
+        <span v-if="inChangedClause" class="quiet-label">{{ lineLabel[detail.type] }}</span>
         <span class="context">{{ detail.label }}</span>
         <span :class="detail.type === 'field-removed' ? 'old-value' : 'after'">{{
           detail.value
@@ -95,9 +93,7 @@ const inChangedClause = computed(() => props.entry.reason !== 'field-removed')
         v-else-if="detail.type === 'text-added' || detail.type === 'text-removed'"
         class="value-line"
       >
-        <span v-if="inChangedClause" class="quiet-label">{{
-          detail.type === 'text-added' ? 'Text added' : 'Text removed'
-        }}</span>
+        <span v-if="inChangedClause" class="quiet-label">{{ lineLabel[detail.type] }}</span>
         <span :class="detail.type === 'text-removed' ? 'old-value' : 'after'">{{
           detail.text
         }}</span>
