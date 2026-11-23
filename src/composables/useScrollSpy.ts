@@ -68,6 +68,15 @@ export function useScrollSpy(
     lockAfterJump: () => {
       holdPending = true
       holdY = null
+      // If the heading was already in place the jump does not scroll, so no scroll
+      // event would start the hold; start it here, two frames later, instead.
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => {
+          if (!holdPending) return
+          holdPending = false
+          holdY = window.scrollY
+        }),
+      )
     },
   }
 }

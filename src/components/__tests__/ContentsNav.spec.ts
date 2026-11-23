@@ -121,4 +121,46 @@ describe('ContentsNav', () => {
     expect(wrapper.find('.compact-label').text()).toBe('Expenses')
     wrapper.unmount()
   })
+  it('follows the reader again when a jump did not need to scroll', async () => {
+    const frames: FrameRequestCallback[] = []
+    vi.stubGlobal('requestAnimationFrame', (run: FrameRequestCallback) => frames.push(run))
+    const flush = () => {
+      while (frames.length) frames.shift()!(0)
+    }
+    const rect =
+      (top: number, bottom = top + 30) =>
+      () =>
+        ({ top, bottom }) as DOMRect
+    document.body.innerHTML = `
+      <section><h2 id="sec-expenses" tabindex="-1"></h2></section>
+      <section id="travel-section"><h3 id="sec-travel" tabindex="-1"></h3></section>
+      <section><h2 id="sec-intro" tabindex="-1"></h2></section>`
+    const expenses = document.getElementById('sec-expenses')!
+    expenses.scrollIntoView = vi.fn<() => void>() // already in place: no scroll happens
+    Object.defineProperty(window, 'scrollY', { value: 500, configurable: true })
+    Object.defineProperty(document.documentElement, 'scrollHeight', {
+      value: 4000,
+      configurable: true,
+    })
+    const wrapper = mount(ContentsNav, { props: { items }, attachTo: document.body })
+    await wrapper
+      .findAll('.wide-nav a')
+      .find((a) => a.text().startsWith('Expenses'))!
+      .trigger('click')
+    await nextTick()
+    flush()
+
+    // The reader now scrolls on by 100px: Travel passes the reading line.
+    Object.defineProperty(window, 'scrollY', { value: 600, configurable: true })
+    expenses.getBoundingClientRect = rect(-24)
+    document.getElementById('sec-travel')!.getBoundingClientRect = rect(40)
+    document.getElementById('travel-section')!.getBoundingClientRect = rect(30, 500)
+    document.getElementById('sec-intro')!.getBoundingClientRect = rect(800)
+    window.dispatchEvent(new Event('scroll'))
+    flush()
+    await nextTick()
+
+    expect(wrapper.find('.compact-label').text()).toBe('Expenses / Travel')
+    wrapper.unmount()
+  })
 })
