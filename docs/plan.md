@@ -31,7 +31,7 @@ Synthetic cases the fixtures do not have, covered by tests on hand-made document
 2. Match by `id`. The base is always the older version.
 3. Change kinds: same id with another parent: `moved`. Same id with a new title or label: `changed`, reason `renamed`. New id: `added`. Missing id: `removed`.
 4. Counting unit is the clause:
-   - Section: title change → one `changed` entry, reason `renamed`. New section → one `added` entry, its clauses are not counted separately. Removed section → one `removed` entry.
+   - Section: title change → one `changed` entry, reason `renamed`. New section → one `added` entry, its clauses are not counted separately. Removed section → one `removed` entry. A section that moved and was renamed is one `moved` entry with a title detail.
    - Clause: one entry per clause, all field and paragraph differences go into its `details`. A moved clause that also changed is one `moved` entry with details. A clause title change together with an added field and an added paragraph is one entry with three details.
    - A clause whose only real details are removed fields gets kind `removed` and reason `field-removed`.
 5. Noise: compare `normalize(plainText(x))`, where `normalize` collapses whitespace, trims, and removes thousand separators between digits. Equal after normalize but different raw → a noise item (`whitespace`, `markup` or `number-format`), not an entry.
@@ -108,7 +108,7 @@ DiffResult { base; target; entries: DiffEntry[];
 | Module | Functions | Input |
 | --- | --- | --- |
 | `format.ts` | `reasonLabel`, `reasonTone`, `changeCount(n)`, `sectionCounts(entries)` (parents include nested) | a reason, a number, `DiffResult.entries` |
-| `contents.ts` | `contentsTree(target, result)`; later `pickActive`, `readingLine` | target `DocumentVersion`, `DiffResult` |
+| `contents.ts` | `contentsTree(result, mode)`; later `pickActive`, `readingLine` | `DiffResult`, `'changes' \| 'full'` |
 | `changes.ts` | `changeGroups(result)` (nested sections as their own group), paragraph text; later `wordSegments(before, after)` | `DiffResult` |
 | `fullDocument.ts` | `documentMarks(result)` (reason per surviving node), `removedNotes(result)` (removed nodes by parent) | `DiffResult` |
 
