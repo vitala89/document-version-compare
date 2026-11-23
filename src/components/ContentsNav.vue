@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, ref } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import ContentsList from '@/components/ContentsList.vue'
 import { useScrollSpy } from '@/composables/useScrollSpy'
 import type { ContentsItem } from '@/view-models/contents'
@@ -46,6 +46,14 @@ function closeSheet() {
   sheet.value.open = false
   sheet.value.querySelector('summary')?.focus()
 }
+
+// Listened on the window: after a jump focus sits on the heading, outside the bar,
+// and a tap on the bar does not move it back on touch screens.
+const onKeydown = (event: KeyboardEvent) => {
+  if (event.key === 'Escape') closeSheet()
+}
+onMounted(() => window.addEventListener('keydown', onKeydown))
+onBeforeUnmount(() => window.removeEventListener('keydown', onKeydown))
 </script>
 
 <template>
@@ -55,7 +63,7 @@ function closeSheet() {
       <ContentsList :items="items" :current="current" @go="goTo" />
     </div>
     <!-- Narrow screens: a bar pinned to the top. It shows where the reader is; one tap opens the list, one tap jumps. -->
-    <details ref="sheet" class="compact-nav" @keydown.esc="closeSheet">
+    <details ref="sheet" class="compact-nav">
       <summary>
         <span class="compact-hint">Section</span>
         <span class="compact-label">{{ currentLabel }}</span>

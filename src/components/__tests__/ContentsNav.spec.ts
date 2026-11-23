@@ -38,4 +38,16 @@ describe('ContentsNav', () => {
     expect(sheet.find('.compact-label').text()).toBe('Expenses / Travel')
     wrapper.unmount()
   })
+
+  it('closes the open list on Escape even when focus is outside the bar', async () => {
+    // After a jump focus sits on the section heading, not inside the bar.
+    const wrapper = mount(ContentsNav, { props: { items }, attachTo: document.body })
+    const sheet = wrapper.find('details.compact-nav').element as HTMLDetailsElement
+    sheet.open = true
+    document.body.focus()
+    document.body.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))
+    expect(sheet.open).toBe(false)
+    expect(document.activeElement?.tagName).toBe('SUMMARY')
+    wrapper.unmount()
+  })
 })
