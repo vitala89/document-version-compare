@@ -1,0 +1,1227 @@
+{
+  "id": "doc-team-handbook",
+  "version": 3,
+  "title": "Team Handbook",
+  "updatedAt": "2026-09-18",
+  "children": [
+    {
+      "id": "sec-intro",
+      "type": "section",
+      "title": "Introduction",
+      "children": [
+        {
+          "id": "cl-intro-purpose",
+          "type": "clause",
+          "title": "Purpose",
+          "children": [
+            {
+              "id": "p-intro-purpose-1",
+              "type": "paragraph",
+              "text": "This handbook describes how the team works together. It applies to everyone on the team, including contractors and interns."
+            }
+          ]
+        },
+        {
+          "id": "cl-intro-scope",
+          "type": "clause",
+          "title": "Scope",
+          "children": [
+            {
+              "id": "p-intro-scope-1",
+              "type": "paragraph",
+              "text": "The handbook covers working hours, leave, expenses, security, approved tools and communication. It does not cover individual employment contracts."
+            }
+          ]
+        },
+        {
+          "id": "cl-intro-control",
+          "type": "clause",
+          "title": "Document control",
+          "children": [
+            {
+              "id": "f-intro-owner",
+              "type": "field",
+              "label": "Owner",
+              "value": "Operations team"
+            },
+            {
+              "id": "f-intro-cycle",
+              "type": "field",
+              "label": "Review cycle",
+              "value": "Every 6 months"
+            },
+            {
+              "id": "f-intro-reviewed",
+              "type": "field",
+              "label": "Last reviewed",
+              "value": "02.04.2026"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sec-hours",
+      "type": "section",
+      "title": "Working Time",
+      "children": [
+        {
+          "id": "cl-hours-core",
+          "type": "clause",
+          "title": "Core hours",
+          "children": [
+            {
+              "id": "f-hours-start",
+              "type": "field",
+              "label": "Core hours start",
+              "value": "10:00"
+            },
+            {
+              "id": "f-hours-end",
+              "type": "field",
+              "label": "Core hours end",
+              "value": "15:00"
+            },
+            {
+              "id": "p-hours-core-1",
+              "type": "paragraph",
+              "text": "Everyone is expected to be available during core hours in their local time zone. Meetings that need the whole team are scheduled inside this window."
+            }
+          ]
+        },
+        {
+          "id": "cl-hours-flex",
+          "type": "clause",
+          "title": "Flexible time",
+          "children": [
+            {
+              "id": "p-hours-flex-1",
+              "type": "paragraph",
+              "text": "Outside core hours you can arrange your day as you see fit, as long as you deliver what you committed to and keep your calendar up to date."
+            }
+          ]
+        },
+        {
+          "id": "cl-hours-overtime",
+          "type": "clause",
+          "title": "Overtime",
+          "children": [
+            {
+              "id": "f-hours-overtime-max",
+              "type": "field",
+              "label": "Maximum weekly overtime (hours)",
+              "value": "8"
+            },
+            {
+              "id": "p-hours-overtime-1",
+              "type": "paragraph",
+              "text": "Overtime is the exception, not the rule. Recurring overtime is a planning problem and should be raised with your lead."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sec-leave",
+      "type": "section",
+      "title": "Leave",
+      "children": [
+        {
+          "id": "cl-leave-annual",
+          "type": "clause",
+          "title": "Annual leave",
+          "children": [
+            {
+              "id": "f-leave-annual-days",
+              "type": "field",
+              "label": "Days per year",
+              "value": "27"
+            },
+            {
+              "id": "p-leave-annual-1",
+              "type": "paragraph",
+              "text": "Request leave at least two weeks in advance for absences longer than three days. Shorter absences need one week's notice."
+            }
+          ]
+        },
+        {
+          "id": "cl-hours-holidays",
+          "type": "clause",
+          "title": "Public holidays",
+          "children": [
+            {
+              "id": "p-hours-holidays-1",
+              "type": "paragraph",
+              "text": "Public holidays follow the country where you are employed. Add them to the shared calendar at the start of each year."
+            }
+          ]
+        },
+        {
+          "id": "cl-leave-sick",
+          "type": "clause",
+          "title": "Sick leave",
+          "children": [
+            {
+              "id": "p-leave-sick-1",
+              "type": "paragraph",
+              "text": "If you are unwell, let your lead know before the start of your working day.  A medical certificate is required from the fourth consecutive day. "
+            }
+          ]
+        },
+        {
+          "id": "cl-leave-parental",
+          "type": "clause",
+          "title": "Parental leave",
+          "children": [
+            {
+              "id": "f-leave-parental-weeks",
+              "type": "field",
+              "label": "Paid weeks",
+              "value": "16"
+            },
+            {
+              "id": "p-leave-parental-1",
+              "type": "paragraph",
+              "text": "Parental leave can be taken in one block or split into two periods within the first year."
+            }
+          ]
+        },
+        {
+          "id": "cl-leave-unpaid",
+          "type": "clause",
+          "title": "Unpaid leave",
+          "children": [
+            {
+              "id": "p-leave-unpaid-1",
+              "type": "paragraph",
+              "text": "Unpaid leave of up to three months may be granted once every two years, subject to team capacity."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sec-expenses",
+      "type": "section",
+      "title": "Expenses",
+      "children": [
+        {
+          "id": "sec-travel",
+          "type": "section",
+          "title": "Travel",
+          "children": [
+            {
+              "id": "cl-travel-flights",
+              "type": "clause",
+              "title": "Flights",
+              "children": [
+                {
+                  "id": "p-travel-flights-1",
+                  "type": "paragraph",
+                  "text": "Book economy class for flights under eight hours. Premium economy may be booked for longer flights with prior approval."
+                }
+              ]
+            },
+            {
+              "id": "cl-travel-hotels",
+              "type": "clause",
+              "title": "Hotels",
+              "children": [
+                {
+                  "id": "f-travel-hotel-limit",
+                  "type": "field",
+                  "label": "Limit per night",
+                  "value": "170 EUR"
+                },
+                {
+                  "id": "p-travel-hotels-1",
+                  "type": "paragraph",
+                  "text": "Choose hotels close to the meeting location. Exceeding the limit requires written approval before booking."
+                }
+              ]
+            },
+            {
+              "id": "cl-travel-perdiem",
+              "type": "clause",
+              "title": "Per diem",
+              "children": [
+                {
+                  "id": "f-travel-perdiem",
+                  "type": "field",
+                  "label": "Daily allowance",
+                  "value": "45 EUR"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cl-exp-equipment",
+          "type": "clause",
+          "title": "Equipment purchases",
+          "children": [
+            {
+              "id": "f-exp-equipment-limit",
+              "type": "field",
+              "label": "Limit without approval",
+              "value": "1000 EUR"
+            },
+            {
+              "id": "p-exp-equipment-1",
+              "type": "paragraph",
+              "text": "Purchases above the limit need approval from your lead and must be registered in the asset inventory."
+            }
+          ]
+        },
+        {
+          "id": "cl-exp-reimbursement",
+          "type": "clause",
+          "title": "Reimbursement",
+          "children": [
+            {
+              "id": "p-exp-reimbursement-1",
+              "type": "paragraph",
+              "text": "Submit receipts within <b>30 days</b> of the expense through the <a href=\"https://intranet.example.com/expenses\">expenses portal</a>. Late submissions may be rejected.<img src=\"x\" onerror=\"console.log('unsafe render')\">"
+            }
+          ]
+        },
+        {
+          "id": "cl-exp-approval",
+          "type": "clause",
+          "title": "Approval",
+          "children": [
+            {
+              "id": "f-exp-approver",
+              "type": "field",
+              "label": "Approver",
+              "value": "Team lead"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sec-security",
+      "type": "section",
+      "title": "Security",
+      "children": [
+        {
+          "id": "cl-sec-credentials",
+          "type": "clause",
+          "title": "Credentials",
+          "children": [
+            {
+              "id": "p-sec-credentials-1",
+              "type": "paragraph",
+              "text": "Use the company password manager for all work accounts. Passwords must be unique per service and at least 16 characters long. Enable two-factor authentication wherever it is available."
+            }
+          ]
+        },
+        {
+          "id": "cl-sec-devices",
+          "type": "clause",
+          "title": "Devices",
+          "children": [
+            {
+              "id": "p-sec-devices-1",
+              "type": "paragraph",
+              "text": "Work devices must have disk encryption and automatic screen lock enabled. Do not install software from unknown sources."
+            }
+          ]
+        },
+        {
+          "id": "cl-sec-incidents",
+          "type": "clause",
+          "title": "Incident reporting",
+          "children": [
+            {
+              "id": "f-sec-incident-contact",
+              "type": "field",
+              "label": "Report to",
+              "value": "security@example.com"
+            },
+            {
+              "id": "p-sec-incidents-1",
+              "type": "paragraph",
+              "text": "Report lost devices, suspected phishing and any unusual account activity immediately. There is no penalty for reporting a false alarm."
+            }
+          ]
+        },
+        {
+          "id": "cl-sec-access",
+          "type": "clause",
+          "title": "Access reviews",
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "sec-tools",
+      "type": "section",
+      "title": "Approved Tools",
+      "children": [
+        {
+          "id": "cl-tool-slack",
+          "type": "clause",
+          "title": "Slack",
+          "children": [
+            {
+              "id": "f-tool-slack-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Salesforce"
+            },
+            {
+              "id": "f-tool-slack-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-zoom",
+          "type": "clause",
+          "title": "Zoom",
+          "children": [
+            {
+              "id": "f-tool-zoom-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Zoom Video Communications"
+            },
+            {
+              "id": "f-tool-zoom-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-notion",
+          "type": "clause",
+          "title": "Notion",
+          "children": [
+            {
+              "id": "f-tool-notion-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Notion Labs"
+            },
+            {
+              "id": "f-tool-notion-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-figma",
+          "type": "clause",
+          "title": "Figma",
+          "children": [
+            {
+              "id": "f-tool-figma-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Figma Inc."
+            },
+            {
+              "id": "f-tool-figma-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-github",
+          "type": "clause",
+          "title": "GitHub",
+          "children": [
+            {
+              "id": "f-tool-github-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Microsoft"
+            },
+            {
+              "id": "f-tool-github-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-jira",
+          "type": "clause",
+          "title": "Jira",
+          "children": [
+            {
+              "id": "f-tool-jira-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Atlassian"
+            },
+            {
+              "id": "f-tool-jira-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-confluence",
+          "type": "clause",
+          "title": "Confluence",
+          "children": [
+            {
+              "id": "f-tool-confluence-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Atlassian"
+            },
+            {
+              "id": "f-tool-confluence-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-1password",
+          "type": "clause",
+          "title": "1Password",
+          "children": [
+            {
+              "id": "f-tool-1password-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "AgileBits"
+            },
+            {
+              "id": "f-tool-1password-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-miro",
+          "type": "clause",
+          "title": "Miro",
+          "children": [
+            {
+              "id": "f-tool-miro-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "RealtimeBoard"
+            },
+            {
+              "id": "f-tool-miro-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-loom",
+          "type": "clause",
+          "title": "Loom",
+          "children": [
+            {
+              "id": "f-tool-loom-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Atlassian"
+            },
+            {
+              "id": "f-tool-loom-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-google-workspace",
+          "type": "clause",
+          "title": "Google Workspace",
+          "children": [
+            {
+              "id": "f-tool-google-workspace-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Google"
+            },
+            {
+              "id": "f-tool-google-workspace-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-linear",
+          "type": "clause",
+          "title": "Linear",
+          "children": [
+            {
+              "id": "f-tool-linear-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Linear Orbit"
+            },
+            {
+              "id": "f-tool-linear-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-datadog",
+          "type": "clause",
+          "title": "Datadog",
+          "children": [
+            {
+              "id": "f-tool-datadog-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Datadog Inc."
+            },
+            {
+              "id": "f-tool-datadog-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-sentry",
+          "type": "clause",
+          "title": "Sentry",
+          "children": [
+            {
+              "id": "f-tool-sentry-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Functional Software"
+            },
+            {
+              "id": "f-tool-sentry-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-pagerduty",
+          "type": "clause",
+          "title": "PagerDuty",
+          "children": [
+            {
+              "id": "f-tool-pagerduty-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "PagerDuty Inc."
+            },
+            {
+              "id": "f-tool-pagerduty-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-vercel",
+          "type": "clause",
+          "title": "Vercel",
+          "children": [
+            {
+              "id": "f-tool-vercel-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Vercel Inc."
+            },
+            {
+              "id": "f-tool-vercel-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-aws-console",
+          "type": "clause",
+          "title": "AWS Console",
+          "children": [
+            {
+              "id": "f-tool-aws-console-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Amazon Web Services"
+            },
+            {
+              "id": "f-tool-aws-console-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-postman",
+          "type": "clause",
+          "title": "Postman",
+          "children": [
+            {
+              "id": "f-tool-postman-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Postman Inc."
+            },
+            {
+              "id": "f-tool-postman-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-docker-desktop",
+          "type": "clause",
+          "title": "Docker Desktop",
+          "children": [
+            {
+              "id": "f-tool-docker-desktop-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Docker Inc."
+            },
+            {
+              "id": "f-tool-docker-desktop-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-vs-code",
+          "type": "clause",
+          "title": "VS Code",
+          "children": [
+            {
+              "id": "f-tool-vs-code-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Microsoft"
+            },
+            {
+              "id": "f-tool-vs-code-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-intellij-idea",
+          "type": "clause",
+          "title": "IntelliJ IDEA",
+          "children": [
+            {
+              "id": "f-tool-intellij-idea-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "JetBrains"
+            },
+            {
+              "id": "f-tool-intellij-idea-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-grammarly",
+          "type": "clause",
+          "title": "Grammarly",
+          "children": [
+            {
+              "id": "f-tool-grammarly-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Grammarly Inc."
+            },
+            {
+              "id": "f-tool-grammarly-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Retired"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-chatgpt",
+          "type": "clause",
+          "title": "ChatGPT",
+          "children": [
+            {
+              "id": "f-tool-chatgpt-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "OpenAI"
+            },
+            {
+              "id": "f-tool-chatgpt-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-claude",
+          "type": "clause",
+          "title": "Claude",
+          "children": [
+            {
+              "id": "f-tool-claude-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Anthropic PBC"
+            },
+            {
+              "id": "f-tool-claude-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-copilot",
+          "type": "clause",
+          "title": "Copilot",
+          "children": [
+            {
+              "id": "f-tool-copilot-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "GitHub"
+            },
+            {
+              "id": "f-tool-copilot-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-zapier",
+          "type": "clause",
+          "title": "Zapier",
+          "children": [
+            {
+              "id": "f-tool-zapier-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Zapier Inc."
+            },
+            {
+              "id": "f-tool-zapier-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-calendly",
+          "type": "clause",
+          "title": "Calendly",
+          "children": [
+            {
+              "id": "f-tool-calendly-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Calendly LLC"
+            },
+            {
+              "id": "f-tool-calendly-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-docusign",
+          "type": "clause",
+          "title": "DocuSign",
+          "children": [
+            {
+              "id": "f-tool-docusign-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "DocuSign Inc."
+            },
+            {
+              "id": "f-tool-docusign-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-canva",
+          "type": "clause",
+          "title": "Canva",
+          "children": [
+            {
+              "id": "f-tool-canva-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Canva Pty"
+            },
+            {
+              "id": "f-tool-canva-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-airtable",
+          "type": "clause",
+          "title": "Airtable",
+          "children": [
+            {
+              "id": "f-tool-airtable-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Formagrid"
+            },
+            {
+              "id": "f-tool-airtable-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-asana",
+          "type": "clause",
+          "title": "Asana",
+          "children": [
+            {
+              "id": "f-tool-asana-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Asana Inc."
+            },
+            {
+              "id": "f-tool-asana-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-dropbox",
+          "type": "clause",
+          "title": "Dropbox",
+          "children": [
+            {
+              "id": "f-tool-dropbox-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Dropbox Inc."
+            },
+            {
+              "id": "f-tool-dropbox-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Retired"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-box",
+          "type": "clause",
+          "title": "Box",
+          "children": [
+            {
+              "id": "f-tool-box-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Box Inc."
+            },
+            {
+              "id": "f-tool-box-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-tableau",
+          "type": "clause",
+          "title": "Tableau",
+          "children": [
+            {
+              "id": "f-tool-tableau-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Salesforce"
+            },
+            {
+              "id": "f-tool-tableau-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-looker",
+          "type": "clause",
+          "title": "Looker",
+          "children": [
+            {
+              "id": "f-tool-looker-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Google"
+            },
+            {
+              "id": "f-tool-looker-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-snowflake",
+          "type": "clause",
+          "title": "Snowflake",
+          "children": [
+            {
+              "id": "f-tool-snowflake-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Snowflake Inc."
+            },
+            {
+              "id": "f-tool-snowflake-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-dbt",
+          "type": "clause",
+          "title": "dbt",
+          "children": [
+            {
+              "id": "f-tool-dbt-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "dbt Labs"
+            },
+            {
+              "id": "f-tool-dbt-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-terraform",
+          "type": "clause",
+          "title": "Terraform",
+          "children": [
+            {
+              "id": "f-tool-terraform-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "HashiCorp"
+            },
+            {
+              "id": "f-tool-terraform-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-okta",
+          "type": "clause",
+          "title": "Okta",
+          "children": [
+            {
+              "id": "f-tool-okta-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Okta Inc."
+            },
+            {
+              "id": "f-tool-okta-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        },
+        {
+          "id": "cl-tool-cursor",
+          "type": "clause",
+          "title": "Cursor",
+          "children": [
+            {
+              "id": "f-tool-cursor-vendor",
+              "type": "field",
+              "label": "Vendor",
+              "value": "Anysphere"
+            },
+            {
+              "id": "f-tool-cursor-status",
+              "type": "field",
+              "label": "Status",
+              "value": "Approved"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sec-comms",
+      "type": "section",
+      "title": "Communication",
+      "children": [
+        {
+          "id": "cl-comms-meetings",
+          "type": "clause",
+          "title": "Meetings",
+          "children": [
+            {
+              "id": "p-comms-meetings-1",
+              "type": "paragraph",
+              "text": "Every meeting has an agenda and a note taker. Decisions are written down in the team space the same day."
+            }
+          ]
+        },
+        {
+          "id": "cl-comms-channels",
+          "type": "clause",
+          "title": "Channels",
+          "children": [
+            {
+              "id": "p-comms-channels-1",
+              "type": "paragraph",
+              "text": "Use public channels by default. Direct messages are for personal or sensitive topics only."
+            }
+          ]
+        },
+        {
+          "id": "cl-comms-response",
+          "type": "clause",
+          "title": "Response times",
+          "children": [
+            {
+              "id": "f-comms-response",
+              "type": "field",
+              "label": "Expected response",
+              "value": "Within 2 working hours"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sec-remote",
+      "type": "section",
+      "title": "Remote Work",
+      "children": [
+        {
+          "id": "cl-remote-eligibility",
+          "type": "clause",
+          "title": "Eligibility",
+          "children": [
+            {
+              "id": "p-remote-eligibility-1",
+              "type": "paragraph",
+              "text": "Everyone may work remotely. Roles that need regular on-site presence are agreed individually."
+            }
+          ]
+        },
+        {
+          "id": "cl-remote-stipend",
+          "type": "clause",
+          "title": "Home office stipend",
+          "children": [
+            {
+              "id": "f-remote-stipend",
+              "type": "field",
+              "label": "Stipend per year",
+              "value": "500 EUR"
+            }
+          ]
+        },
+        {
+          "id": "cl-remote-setup",
+          "type": "clause",
+          "title": "Home office setup",
+          "children": [
+            {
+              "id": "p-remote-setup-1",
+              "type": "paragraph",
+              "text": "Your home workspace must meet the same security requirements as the office: encrypted device, locked screen, no shared accounts."
+            }
+          ]
+        },
+        {
+          "id": "cl-remote-coworking",
+          "type": "clause",
+          "title": "Co-working spaces",
+          "status": "draft",
+          "children": [
+            {
+              "id": "p-remote-coworking-1",
+              "type": "paragraph",
+              "text": "Co-working memberships may be reimbursed up to the home office stipend. Details to be confirmed."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
