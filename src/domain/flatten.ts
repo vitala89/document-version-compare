@@ -1,4 +1,4 @@
-import type { DocNode, DocumentVersion, SectionNode } from './types'
+import type { DocNode, DocumentVersion } from './types'
 
 export interface IndexedNode {
   node: DocNode
@@ -12,7 +12,7 @@ export type NodeIndex = Map<string, IndexedNode>
 /**
  * Flat lookup by id at any depth. Top-level sections have parentId null;
  * subsectionId is the closest nested section. The screens show one level of
- * nesting, as in the data (README, Assumptions).
+ * nesting, as in the data (README, Questions I asked and assumptions).
  */
 export function indexDocument(doc: DocumentVersion): NodeIndex {
   const index: NodeIndex = new Map()
@@ -33,6 +33,6 @@ export function indexDocument(doc: DocumentVersion): NodeIndex {
     })
   }
 
-  visit(doc.children as SectionNode[], null, null)
+  visit(doc.children, null, null)
   return index
 }

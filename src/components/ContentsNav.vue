@@ -20,10 +20,10 @@ const flat = (
     },
     ...flat(item.children, item),
   ])
-const options = computed(() => flat(props.items))
+const headings = computed(() => flat(props.items))
 // Narrow screens: the pinned bar names the section the reader is in.
 const currentLabel = computed(
-  () => options.value.find((o) => o.id === current.value)?.label ?? 'Jump to section',
+  () => headings.value.find((h) => h.id === current.value)?.label ?? 'Jump to section',
 )
 
 // The bar is hidden (no offsetParent) on wide screens, so it covers nothing there.
@@ -32,7 +32,7 @@ const barBottom = () =>
   sheet.value?.offsetParent
     ? (sheet.value.querySelector('summary')?.getBoundingClientRect().bottom ?? 0)
     : 0
-const { lockAfterJump } = useScrollSpy(() => options.value, current, barBottom)
+const { lockAfterJump } = useScrollSpy(() => headings.value, current, barBottom)
 
 async function goTo(id: string) {
   if (sheet.value) sheet.value.open = false

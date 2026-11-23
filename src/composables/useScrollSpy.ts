@@ -1,7 +1,7 @@
 import { onBeforeUnmount, onMounted, type Ref } from 'vue'
 import { pickActive, readingLine, type HeadingPosition } from '@/view-models/contents'
 
-/** A heading becomes current once its top passes this line. A jump parks headings at 24px (scroll-margin-top). */
+/** A heading becomes current once its top passes this line. A jump parks headings at 24px, or 76px under the pinned bar (scroll-margin-top). */
 const READING_LINE = 64
 /** After a Contents jump the chosen link holds until the reader really scrolls away. */
 const HOLD_DISTANCE = 48
