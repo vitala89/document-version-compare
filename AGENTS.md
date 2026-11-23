@@ -36,7 +36,7 @@ A new screen gets a new view-model with a test; the domain stays unchanged. Foll
 Paragraph text may contain inline markup and is untrusted.
 
 - `v-html` is forbidden (`vue/no-v-html` is an ESLint error) except in `src/components/SafeHtml.vue`, which renders only the output of `sanitizeHtml()` from `src/security/sanitize.ts`.
-- Allowlist: `b`, `strong`, `i`, `em`, `code`, `a`. Links only with `http:` or `https:`, always `rel="noopener noreferrer"`.
+- Allowlist: `b`, `strong`, `i`, `em`, `code`, `a`. Links only with `http:` or `https:`, always `rel="noopener noreferrer"` and `target="_blank"`, so a link never replaces the comparison the reader is on.
 - Diffing always works on plain text.
 
 ## Diff rules (summary)

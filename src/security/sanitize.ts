@@ -12,7 +12,9 @@ const purifier = DOMPurify(window)
 
 purifier.addHook('afterSanitizeAttributes', (node) => {
   if (node.tagName === 'A' && node.hasAttribute('href')) {
+    // New tab, so the reader keeps the chosen pair and scroll position; rel blocks tabnabbing.
     node.setAttribute('rel', 'noopener noreferrer')
+    node.setAttribute('target', '_blank')
   }
 })
 
