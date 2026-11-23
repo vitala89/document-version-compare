@@ -33,7 +33,7 @@ describe('changeGroups', () => {
 describe('wordSegments', () => {
   it('marks only the changed words on each side', () => {
     const { before, after } = wordSegments('flights under six hours.', 'flights under eight hours.')
-    expect(before).toEqual([
+    expect(before.map(({ text, changed }) => ({ text, changed }))).toEqual([
       { text: 'flights under ', changed: false },
       { text: 'six', changed: true },
       { text: ' hours.', changed: false },
@@ -50,6 +50,17 @@ describe('wordSegments', () => {
     expect(after.filter((s) => s.changed).map((s) => s.text.trim())).toEqual([
       'through the expenses portal',
     ])
+  })
+
+  it('keeps surrounding spaces outside the marked words', () => {
+    const { after } = wordSegments(
+      'of the expense. Late',
+      'of the expense through the expenses portal. Late',
+    )
+    const inserted = after.find((s) => s.changed)!
+    expect(inserted.lead + inserted.word + inserted.trail).toBe(inserted.text)
+    expect(inserted.word).toBe('through the expenses portal')
+    expect(inserted.lead).toBe(' ')
   })
 
   it('rebuilds both original texts exactly', () => {

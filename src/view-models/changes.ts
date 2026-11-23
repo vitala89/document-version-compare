@@ -71,6 +71,15 @@ export function changeGroups(result: DiffResult): ChangeGroup[] {
 export interface Segment {
   text: string
   changed: boolean
+  /** The text split so that surrounding spaces can stay outside a highlight. */
+  lead: string
+  word: string
+  trail: string
+}
+
+const segment = (text: string, changed: boolean): Segment => {
+  const [, lead = '', word = '', trail = ''] = /^(\s*)([\s\S]*?)(\s*)$/.exec(text) ?? []
+  return { text, changed, lead, word, trail }
 }
 
 /** Splits two plain texts into segments for the Before and After lines, marking changed words. */
@@ -81,8 +90,8 @@ export function wordSegments(
   const result = { before: [] as Segment[], after: [] as Segment[] }
   // WithSpace keeps whitespace as tokens, so each side rebuilds its original text exactly.
   for (const part of diffWordsWithSpace(before, after)) {
-    if (!part.added) result.before.push({ text: part.value, changed: part.removed })
-    if (!part.removed) result.after.push({ text: part.value, changed: part.added })
+    if (!part.added) result.before.push(segment(part.value, part.removed))
+    if (!part.removed) result.after.push(segment(part.value, part.added))
   }
   return result
 }

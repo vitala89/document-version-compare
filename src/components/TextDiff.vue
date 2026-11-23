@@ -3,12 +3,8 @@ import { computed } from 'vue'
 import { wordSegments } from '@/view-models/changes'
 
 const props = defineProps<{ before: string; after: string }>()
+// Segments carry lead, word and trail, so surrounding spaces stay outside the highlight.
 const segments = computed(() => wordSegments(props.before, props.after))
-// Keep surrounding spaces outside the highlight, so only words are marked.
-const split = (text: string) => {
-  const m = /^(\s*)([\s\S]*?)(\s*)$/.exec(text)!
-  return { lead: m[1], word: m[2], trail: m[3] }
-}
 </script>
 
 <template>
@@ -18,8 +14,8 @@ const split = (text: string) => {
       <dd>
         <template v-for="(s, i) in segments.before" :key="i"
           ><template v-if="s.changed"
-            >{{ split(s.text).lead }}<del>{{ split(s.text).word }}</del
-            >{{ split(s.text).trail }}</template
+            >{{ s.lead }}<del>{{ s.word }}</del
+            >{{ s.trail }}</template
           ><template v-else>{{ s.text }}</template></template
         >
       </dd>
@@ -29,8 +25,8 @@ const split = (text: string) => {
       <dd>
         <template v-for="(s, i) in segments.after" :key="i"
           ><template v-if="s.changed"
-            >{{ split(s.text).lead }}<ins>{{ split(s.text).word }}</ins
-            >{{ split(s.text).trail }}</template
+            >{{ s.lead }}<ins>{{ s.word }}</ins
+            >{{ s.trail }}</template
           ><template v-else>{{ s.text }}</template></template
         >
       </dd>
