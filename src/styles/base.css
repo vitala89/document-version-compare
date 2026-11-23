@@ -573,6 +573,18 @@ select option:disabled {
 }
 .text-diff .quiet-label {
   color: var(--text);
+} /* Before and After use the same neutral pill as field labels */
+.text-diff del {
+  color: var(--removed);
+  text-decoration-thickness: 1px;
+}
+.text-diff ins {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: var(--text);
+  border-radius: 4px;
+  padding-inline: 2px;
+  background: color-mix(in srgb, var(--added) 20%, transparent);
 }
 .field-diff {
   display: flex;

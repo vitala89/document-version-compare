@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import ClauseBody from '@/components/ClauseBody.vue'
+import TextDiff from '@/components/TextDiff.vue'
 import ValuePair from '@/components/ValuePair.vue'
 import type { ClauseNode, DiffEntry, SectionNode } from '@/domain/types'
 import { reasonLabel } from '@/view-models/format'
@@ -76,16 +77,7 @@ const inChangedClause = computed(() => props.entry.reason === 'changed')
         </dt>
         <dd><ValuePair :before="detail.before" :after="detail.after" /></dd>
       </dl>
-      <dl v-else-if="detail.type === 'text'" class="text-diff">
-        <div class="prior-copy">
-          <dt><span class="quiet-label">Before</span></dt>
-          <dd>{{ detail.before }}</dd>
-        </div>
-        <div class="current-copy">
-          <dt><span class="quiet-label">After</span></dt>
-          <dd>{{ detail.after }}</dd>
-        </div>
-      </dl>
+      <TextDiff v-else-if="detail.type === 'text'" :before="detail.before" :after="detail.after" />
       <div
         v-else-if="detail.type === 'field-added' || detail.type === 'field-removed'"
         class="value-line"

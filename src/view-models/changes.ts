@@ -1,3 +1,4 @@
+import { diffWordsWithSpace } from 'diff'
 import { plainText } from '@/domain/text'
 import type { DiffEntry, DiffResult, SectionNode } from '@/domain/types'
 
@@ -40,6 +41,25 @@ export function changeGroups(result: DiffResult): ChangeGroup[] {
     sub.entries.push(entry)
   }
   return [...groups.values()]
+}
+
+export interface Segment {
+  text: string
+  changed: boolean
+}
+
+/** Splits two plain texts into segments for the Before and After lines, marking changed words. */
+export function wordSegments(
+  before: string,
+  after: string,
+): { before: Segment[]; after: Segment[] } {
+  const result = { before: [] as Segment[], after: [] as Segment[] }
+  // WithSpace keeps whitespace as tokens, so each side rebuilds its original text exactly.
+  for (const part of diffWordsWithSpace(before, after)) {
+    if (!part.added) result.before.push({ text: part.value, changed: part.removed })
+    if (!part.removed) result.after.push({ text: part.value, changed: part.added })
+  }
+  return result
 }
 
 /**
