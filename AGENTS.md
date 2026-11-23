@@ -81,5 +81,6 @@ When I tell you I checked or rejected something, append a complete row to `docs/
 
 - One logical change per commit, with its tests in the same commit.
 - Message: `type(scope): what changed`. Types: `feat`, `fix`, `test`, `refactor`, `docs`, `chore`, `style`.
+- Non-trivial commits get a short body (1-3 lines) on why the change is made; trivial setup and log commits need only the subject.
 - Never commit when `npm run check` is failing. Commit with plain `git commit`: a Husky pre-commit hook runs `npm run check` and blocks a red commit; never use `--no-verify`.
 - When I ask you, including with a ready prompt, you may create branches from an up-to-date main (`git checkout main && git pull && git checkout -b ...`), commit, push, and open a pull request into main with title and body What, Why, How to test. Never merge. Do not push or open a pull request unless asked.
