@@ -283,6 +283,12 @@ select option:disabled {
 .summary .mix-bar {
   grid-column: 1 / -1;
 }
+
+/* mix bar inside the total card, like a spending-limit bar: share of each change kind */
+.noise-note {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
 .mix-bar {
   display: flex;
   gap: 5px;

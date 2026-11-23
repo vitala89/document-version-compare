@@ -9,6 +9,10 @@ const kinds: ChangeKind[] = ['changed', 'added', 'removed', 'moved']
 const parts = computed(() => kinds.map((k) => ({ kind: k, count: props.result.counts[k] })))
 const total = computed(() => props.result.counts.total)
 const pair = computed(() => `v${props.result.base.version} → v${props.result.target.version}`)
+const hidden = computed(() => {
+  const n = props.result.noise.length
+  return n ? `${changeCount(n, 'formatting-only change')} hidden` : ''
+})
 </script>
 
 <template>
@@ -25,6 +29,7 @@ const pair = computed(() => `v${props.result.base.version} → v${props.result.t
         <span class="dot" aria-hidden="true" /><strong>{{ p.count }}</strong> {{ p.kind }}
       </li>
     </ul>
+    <span v-if="hidden" class="noise-note">{{ hidden }}</span>
     <div class="mix-bar" aria-hidden="true">
       <span
         v-for="p in parts.filter((x) => x.count > 0)"
