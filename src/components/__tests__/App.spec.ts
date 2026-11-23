@@ -38,6 +38,7 @@ describe('App', () => {
     const link = doc.find('a[href="https://intranet.example.com/expenses"]')
     expect(link.exists()).toBe(true)
     expect(link.attributes('rel')).toBe('noopener noreferrer')
+    expect(link.attributes('target')).toBe('_blank')
   })
 
   it('never renders paragraph markup in Changes only', () => {

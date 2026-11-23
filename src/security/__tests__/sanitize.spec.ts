@@ -16,7 +16,13 @@ describe('sanitizeHtml', () => {
     expect(html).not.toContain('<img')
     expect(html).toContain('<b>30 days</b>')
     expect(html).toContain(
-      '<a href="https://intranet.example.com/expenses" rel="noopener noreferrer">expenses portal</a>',
+      '<a href="https://intranet.example.com/expenses" rel="noopener noreferrer" target="_blank">expenses portal</a>',
+    )
+  })
+
+  it('opens links in a new tab and replaces a rel or target the input brings', () => {
+    expect(sanitizeHtml('<a href="https://x.test" rel="opener" target="_self">x</a>')).toBe(
+      '<a href="https://x.test" rel="noopener noreferrer" target="_blank">x</a>',
     )
   })
 
