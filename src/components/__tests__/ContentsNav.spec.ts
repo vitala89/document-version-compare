@@ -24,4 +24,18 @@ describe('ContentsNav', () => {
       })
     expect(names).toEqual(['Expenses, 2 changes', 'Travel, 1 change', 'Introduction'])
   })
+
+  it('on narrow screens names the chosen section in the pinned bar and closes the list after a jump', async () => {
+    const wrapper = mount(ContentsNav, { props: { items }, attachTo: document.body })
+    const sheet = wrapper.find('details.compact-nav')
+    expect(sheet.find('.compact-label').text()).toBe('Jump to section')
+    ;(sheet.element as HTMLDetailsElement).open = true
+    await sheet
+      .findAll('a')
+      .find((a) => a.text().startsWith('Travel'))!
+      .trigger('click')
+    expect((sheet.element as HTMLDetailsElement).open).toBe(false)
+    expect(sheet.find('.compact-label').text()).toBe('Expenses / Travel')
+    wrapper.unmount()
+  })
 })

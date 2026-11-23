@@ -6,6 +6,7 @@ import type { ContentsItem } from '@/view-models/contents'
 
 const props = defineProps<{ items: ContentsItem[] }>()
 const current = ref<string | null>(null)
+const sheet = ref<HTMLDetailsElement | null>(null)
 
 const flat = (
   items: ContentsItem[],
@@ -20,10 +21,17 @@ const flat = (
     ...flat(item.children, item),
   ])
 const options = computed(() => flat(props.items))
+// Narrow screens: the pinned bar names the section the reader is in.
+const currentLabel = computed(
+  () => options.value.find((o) => o.id === current.value)?.label ?? 'Jump to section',
+)
 
-const { lockAfterJump } = useScrollSpy(() => options.value, current)
+// The bar is hidden (no offsetParent) on wide screens, so it covers nothing there.
+const barBottom = () => (sheet.value?.offsetParent ? sheet.value.getBoundingClientRect().bottom : 0)
+const { lockAfterJump } = useScrollSpy(() => options.value, current, barBottom)
 
 async function goTo(id: string) {
+  if (sheet.value) sheet.value.open = false
   current.value = id
   lockAfterJump()
   await nextTick()
@@ -31,6 +39,12 @@ async function goTo(id: string) {
   if (!heading) return
   heading.focus({ preventScroll: true })
   heading.scrollIntoView({ block: 'start' })
+}
+
+function closeSheet() {
+  if (!sheet.value?.open) return
+  sheet.value.open = false
+  sheet.value.querySelector('summary')?.focus()
 }
 </script>
 
@@ -40,5 +54,13 @@ async function goTo(id: string) {
       <h2>Contents</h2>
       <ContentsList :items="items" :current="current" @go="goTo" />
     </div>
+    <!-- Narrow screens: a bar pinned to the top. It shows where the reader is; one tap opens the list, one tap jumps. -->
+    <details ref="sheet" class="compact-nav" @keydown.esc="closeSheet">
+      <summary>
+        <span class="compact-hint">Section</span>
+        <span class="compact-label">{{ currentLabel }}</span>
+      </summary>
+      <ContentsList :items="items" :current="current" @go="goTo" />
+    </details>
   </nav>
 </template>
