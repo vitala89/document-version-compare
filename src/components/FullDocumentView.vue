@@ -65,11 +65,11 @@ const removed = (parentId: string) => notes.value[parentId] ?? []
       <ChangeMark reason="removed" /><span>{{ gone.title }}</span>
     </p>
   </section>
-  <section v-if="removed('root').length" class="panel" aria-labelledby="removed-sections">
+  <section v-if="removed(result.target.id).length" class="panel" aria-labelledby="removed-sections">
     <div class="section-head">
       <h2 id="removed-sections" tabindex="-1">Removed sections</h2>
     </div>
-    <p v-for="gone in removed('root')" :key="gone.id" class="removed-note">
+    <p v-for="gone in removed(result.target.id)" :key="gone.id" class="removed-note">
       <ChangeMark reason="removed" /><span>Section: {{ gone.title }}</span>
     </p>
   </section>

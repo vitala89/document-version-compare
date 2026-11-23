@@ -14,12 +14,12 @@ export interface RemovedNote {
   title: string
 }
 
-/** Removed sections and clauses, keyed by the parent that still shows them ('root' for top-level sections). */
+/** Removed sections and clauses, keyed by the parent that still shows them (the document id for top-level sections). */
 export function removedNotes(result: DiffResult): Record<string, RemovedNote[]> {
   const notes: Record<string, RemovedNote[]> = {}
   for (const e of result.entries) {
     if (e.reason !== 'removed') continue
-    ;(notes[e.parentId ?? 'root'] ??= []).push({ id: e.id, title: e.title })
+    ;(notes[e.parentId ?? result.target.id] ??= []).push({ id: e.id, title: e.title })
   }
   return notes
 }

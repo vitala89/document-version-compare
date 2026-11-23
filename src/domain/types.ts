@@ -81,5 +81,6 @@ export interface DiffResult {
   entries: DiffEntry[]
   counts: Record<ChangeKind, number> & { total: number }
   noise: { id: string; reason: NoiseReason }[]
+  /** Parents whose children only changed order; the top level is the document id. */
   reorderedParents: string[]
 }

@@ -101,7 +101,7 @@ export function diffDocuments(base: DocumentVersion, target: DocumentVersion): D
     entries,
     counts: countKinds(entries),
     noise: noise.sort((a, b) => a.id.localeCompare(b.id)),
-    reorderedParents: reordered(before, after),
+    reorderedParents: reordered(before, after, target.id),
   }
 }
 
@@ -227,12 +227,15 @@ function hasAncestor(index: NodeIndex, id: string, test: (ancestorId: string) =>
   return false
 }
 
-/** Parents whose surviving children kept their ids but changed order. */
-function reordered(before: NodeIndex, after: NodeIndex): string[] {
+/**
+ * Parents whose surviving children kept their ids but changed order. The top
+ * level is reported as the document id, which no node can share.
+ */
+function reordered(before: NodeIndex, after: NodeIndex, documentId: string): string[] {
   const childrenOf = (index: NodeIndex) => {
     const map = new Map<string, string[]>()
     for (const [id, at] of index) {
-      const parent = at.parentId ?? 'root'
+      const parent = at.parentId ?? documentId
       const ids = map.get(parent)
       if (ids) ids.push(id)
       else map.set(parent, [id])
@@ -249,7 +252,8 @@ function reordered(before: NodeIndex, after: NodeIndex): string[] {
     const isThere = new Set(ids)
     const kept = ids.filter((id) => wasThere.has(id))
     const keptBefore = previous.filter((id) => isThere.has(id))
-    if (kept.join() !== keptBefore.join()) result.push(parent)
+    // Element by element: joining ids into one string could match ids that contain commas.
+    if (kept.some((id, i) => id !== keptBefore[i])) result.push(parent)
   }
   return result
 }
