@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import ChangeSummary from '@/components/ChangeSummary.vue'
+import ContentsNav from '@/components/ContentsNav.vue'
 import VersionPicker from '@/components/VersionPicker.vue'
 import { useComparison, versions } from '@/composables/useComparison'
+import { contentsTree } from '@/view-models/contents'
 
 type Mode = 'changes' | 'full'
 
@@ -13,6 +15,10 @@ const target = ref(latest.version)
 const base = ref(previous.version)
 const mode = ref<Mode>('changes')
 const result = useComparison(base, target)
+const contents = computed(() => contentsTree(result.value, mode.value))
+const documentLabel = computed(() =>
+  mode.value === 'changes' ? 'Document changes' : `Full document, v${result.value.target.version}`,
+)
 </script>
 
 <template>
@@ -41,5 +47,10 @@ const result = useComparison(base, target)
       <VersionPicker v-model:base="base" v-model:target="target" :versions="versions" />
     </div>
     <ChangeSummary :result="result" />
+    <div class="layout">
+      <!-- New key per comparison resets the chosen link. -->
+      <ContentsNav :key="`${base}-${target}-${mode}`" :items="contents" />
+      <article id="document" class="document" tabindex="-1" :aria-label="documentLabel"></article>
+    </div>
   </main>
 </template>
